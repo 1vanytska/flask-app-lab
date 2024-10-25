@@ -1,14 +1,25 @@
-from flask import Flask, request, redirect
+from flask import Flask, request
 app = Flask(__name__)    
 
 @app.route('/')   # URL '/' to be handled by main() route handler
 def main():
     return 'Hello, world!'
 
-@app.route('/homepage')   # URL '/' to be handled by main() route handler
+@app.route('/homepage')
 def home():
     """View for the Home page of your website."""
-    return "This is your Home page :)"
+    agent = request.user_agent
+    return f"<h1>This is your Home page :) - {agent}</h1>"
+
+@app.route('/hi/<string:name>') # hi\sofiia?age=19
+def greetings(name):
+    name = name.upper()
+    age = request.args.get("age", 0, type = int)
+    return f"Welcome {name=} {age=}"
+
+def home():
+    """View for the Home page of your website."""
+    return "<h1>This is your Home page :)</h1>"
 
 if __name__ == "__main__":
     app.run()  # Launch built-in web server and run this Flask webapp, debug=True
