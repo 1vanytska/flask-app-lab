@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, redirect, url_for
 app = Flask(__name__)    
 
 @app.route('/')   # URL '/' to be handled by main() route handler
@@ -15,7 +15,13 @@ def home():
 def greetings(name):
     name = name.upper()
     age = request.args.get("age", 0, type = int)
-    return f"Welcome {name=} {age=}"
+    return f"Welcome {name=} {age=}", 200
+
+@app.route('/admin')
+def admin():
+    to_url = url_for("greetings", name="administrator", _external=True)               # --> "hi/administrator"
+    print(to_url)
+    return redirect(to_url)
 
 def home():
     """View for the Home page of your website."""
