@@ -4,10 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %} {% endblock %} - FlaskApp</title>
+    <link rel="stylesheet" href="/static/styles/styles.css">
 </head>
 <body>
-    {% block content %}
-    Hello
-    {% endblock %}
+    <header>
+        {% include 'navbar.html' %}
+    </header>
+
+    <div class="container">
+        <aside class="sidebar">
+            {% block aside %}
+            {% endblock %}
+        </aside>
+
+        <main class="content">
+            {% block content %}
+            {% endblock %}
+        </main>
+    </div>
+
+    <footer>
+        {% include 'footer.html' %}
+    </footer>
 </body>
 </html>

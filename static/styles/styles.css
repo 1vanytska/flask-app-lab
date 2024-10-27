@@ -8,9 +8,8 @@ body {
 }
 
 header {
-    background: linear-gradient(135deg, #3a3a3a, #595959);
+    background: #595959;
     color: #fff;
-    padding: 20px 0;
     text-align: center;
 }
 
@@ -34,6 +33,45 @@ header p {
     margin: 5px 0 0;
     font-size: 1.2em;
     color: #d1d1d1;
+}
+
+nav {
+    width: 80%;
+    margin: 0 auto;
+    padding: 10px 0;
+}
+
+nav ul {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    list-style: none;
+    padding: 0;
+}
+
+nav ul li {
+    flex: 1;
+    margin: 0 5px;
+}
+
+nav ul li a {
+    display: block;
+    background: #3a3a3a;
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background 0.3s, color 0.3s;
+}
+
+nav ul li a:hover {
+    background: #595959;
+    color: #fff;
+}
+
+main {
+    padding: 20px;
 }
 
 .container {
