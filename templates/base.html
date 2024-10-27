@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ title }}</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style/style.css') }}">
-</head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+ </head>
 <body>
     <header>
-        {% include 'navbar.html' %}
+        {% include 'includes/navbar.html' %}
     </header>
 
     <div class="container">
@@ -24,7 +24,7 @@
     </div>
 
     <footer>
-        {% include 'footer.html' %}
+        {% include 'includes/footer.html' %}
     </footer>
 </body>
 </html>
