@@ -5,7 +5,7 @@ from flask import redirect, render_template, abort, request, url_for
 def greetings(name):
     name = name.upper()
     age = request.args.get("age", None, type = int)
-    return render_template("hi.html", name=name, age=age)
+    return render_template("users/hi.html", name=name, age=age)
 
 @user_bp.route('/admin')
 def admin():
