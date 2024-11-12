@@ -3,10 +3,30 @@
 {% block title %}Login Page{% endblock %}
 
 {% block content %}
+<div class="container mt-5">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="container mt-3">
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }}" role="alert">
+                {{ message }}
+                </div>
+            {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+    <h2>Login</h2>
 
-<form action="" method="post">
-    Ім'я користувача: <input type="text" name="login">
-    <input type="submit" value="Увійти">
-</form>
-
+    <form action="" method="post">
+        <div class="form-group">
+            <label for="username">User name</label>
+            <input type="text" class="form-control" id="username" name="username" required>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" name="password" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Sign in</button>
+    </form>
+</div>
 {% endblock %}

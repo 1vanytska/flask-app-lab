@@ -2,29 +2,38 @@ from . import user_bp
 from flask import flash, make_response, redirect, render_template, request, session, url_for
 from datetime import datetime, timedelta
 
+VALID_USERNAME = "user"
+VALID_PASSWORD = "123"
+
 @user_bp.route("/profile")
 def get_profile():
     if "username" in session:
         username_value = session["username"]
         return render_template("profile.html", username=username_value)
-    flash("Invalid: Session.", "danger")
+    flash("You need to log in to access this page.", "danger")
     return redirect(url_for("users.login"))
 
-@user_bp.route("/login",  methods=['GET', 'POST'])
+@user_bp.route("/login", methods=['GET', 'POST'])
 def login():
     if request.method == "POST":
-        username = request.form["login"]
-        session["username"] = username
-        flash("Success: session added successfully.", "success")
-        return redirect(url_for("users.get_profile"))
+        username = request.form["username"]
+        password = request.form["password"]
+        
+        if username == VALID_USERNAME and password == VALID_PASSWORD:
+            session["username"] = username
+            session.permanent = True
+            flash("Successfully logged in!", "success")
+            return redirect(url_for("users.get_profile"))
+        else:
+            flash("Invalid username or password.", "danger")
+            return redirect(url_for("users.login"))
     return render_template("login.html")
 
 @user_bp.route('/logout')
 def logout():
-    # Видалення користувача із сесії
     session.pop('username', None)
-    session.pop('age', None)
-    return redirect(url_for('users.get_profile'))
+    flash("Successfully logged out.", "info")
+    return redirect(url_for('users.login'))
 
 @user_bp.route('/hi/<string:name>') # --> user/hi/sofiia?age=19
 def greetings(name):
