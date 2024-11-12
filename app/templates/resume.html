@@ -3,7 +3,7 @@
 {% block title %}My Resume{% endblock %}
 
 {% block aside %}
-    <aside class="sidebar bg-light p-4 rounded shadow-sm">
+    <aside class="sidebar bg-light p-4 text-center rounded shadow-sm col-md-3 sidebar-container">
         <h1 class="profile-name">Sofiia Ivanytska</h1>
         <img src="{{ url_for('static', filename='images/profile.jpg') }}" alt="Profile Photo" class="profile-photo mb-3">
         <h2 class="personal-info-title">Personal Information</h2>
@@ -19,7 +19,7 @@
 {% endblock %}
 
 {% block content %}
-    <main class="col-md-8">
+    <main class="main-content">
         <section id="about" class="bg-white p-4 rounded shadow-sm mb-4">
             <h2>About Me</h2>
             <p>I am a driven Java developer with experience in creating web applications using Spring Boot. I have knowledge

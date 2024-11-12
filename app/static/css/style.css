@@ -1,7 +1,44 @@
-body {
+.body {
     font-family: 'Helvetica Neue', Arial, sans-serif;
-    background: #a3a3a3;
+    background-color: #c7c7c7;
+    margin: 0;
+    padding: 0;
     color: #333;
+}
+
+.navbar {
+    background-color: #333;
+}
+
+.navbar a.nav-link, .navbar-brand {
+    color: #fff;
+}
+
+.navbar a.nav-link:hover {
+    color: #ddd;
+}
+
+.content-wrapper {
+    background-color: #eaeaea;
+    border-radius: 12px;
+    padding: 25px;
+    display: flex;
+    gap: 25px;
+}
+
+.sidebar-container {
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.main-content {
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 10px;
+    flex: 1 1 60%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .profile-photo {
@@ -11,38 +48,30 @@ body {
     object-fit: cover;
     border: 3px solid #333;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.sidebar {
-    background: #d9d9d9;
-    border-radius: 8px;
-    padding: 5px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 15px;
 }
 
 .sidebar h1.profile-name {
     font-size: 1.5em;
     font-weight: bold;
-    margin-bottom: 10px;
+    margin-top: 10px;
     color: #333;
-    text-align: center;
 }
 
 .sidebar h2.personal-info-title {
-    font-size: 1.3em;
+    font-size: 1.2em;
     color: #333;
-    border-bottom: 2px solid #333;
+    border-bottom: 1px solid #ccc;
     padding-bottom: 8px;
-    margin-bottom: 15px;
-    text-align: center;
+    margin: 15px 0;
 }
 
 .sidebar .contact-info {
-    margin-bottom: 8px;
+    margin-bottom: 10px;
 }
 
 .sidebar a {
-    color: #333;
+    color: #000;
     text-decoration: none;
 }
 
@@ -50,47 +79,20 @@ body {
     text-decoration: underline;
 }
 
-.content {
-    flex-grow: 1;
-    overflow-y: auto;
-}
-body {
-    font-family: 'Helvetica Neue', Arial, sans-serif;
-    background: #a3a3a3;
+.content h2 {
+    font-size: 1.5em;
     color: #333;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    margin: 0;
+    margin-bottom: 10px;
 }
 
-.profile-photo {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 3px solid #333;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.sidebar {
-    background: #d9d9d9;
-    border-radius: 8px;
-    padding: 5px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 250px;
+footer {
+    background-color: #333;
+    color: #fff;
+    padding: 15px 0;
     text-align: center;
+    margin-top: 30px;
 }
 
-.content {
-    flex-grow: 1;
-    overflow-y: auto;
-    max-width: 900px;
-}
-
-
-
-.bg-light {
-    padding: 20px;
-    border-radius: 10px;
+footer p {
+    margin: 0;
 }
