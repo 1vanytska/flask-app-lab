@@ -1,52 +1,96 @@
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-.navbar {
-    padding: 1%;
-    background-color: #333;
-}
-
-.navbar-brand {
-    font-size: 1.5rem;
-    color: white !important;
-    padding: 10px 15px;
-    text-decoration: none;
-}
-
-.navbar-nav {
-    background-color: #f8f9fa;
-    padding: 15px;
-    border-radius: 5px;
-    padding: 2%;
-}
-
-.navbar-nav .nav-link {
-    font-size: 1rem;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background: #a3a3a3;
     color: #333;
-    padding: 5px 0;
+}
+
+.profile-photo {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #333;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.sidebar {
+    background: #d9d9d9;
+    border-radius: 8px;
+    padding: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar h1.profile-name {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+    text-align: center;
+}
+
+.sidebar h2.personal-info-title {
+    font-size: 1.3em;
+    color: #333;
+    border-bottom: 2px solid #333;
+    padding-bottom: 8px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.sidebar .contact-info {
+    margin-bottom: 8px;
+}
+
+.sidebar a {
+    color: #333;
     text-decoration: none;
 }
 
-.navbar-nav .nav-link.text-muted {
-    color: #6c757d !important;
+.sidebar a:hover {
+    text-decoration: underline;
 }
 
-.navbar-nav.flex-column {
+.content {
+    flex-grow: 1;
+    overflow-y: auto;
+}
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background: #a3a3a3;
+    color: #333;
+    display: flex;
     flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
 }
 
-.container h1 {
-    font-size: 3rem;
+.profile-photo {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #333;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.container h2 {
-    font-size: 2rem;
+.sidebar {
+    background: #d9d9d9;
+    border-radius: 8px;
+    padding: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 250px;
+    text-align: center;
 }
 
-.text-success {
-    color: green;
+.content {
+    flex-grow: 1;
+    overflow-y: auto;
+    max-width: 900px;
 }
 
-.text-danger {
-    color: red;
+
+
+.bg-light {
+    padding: 20px;
+    border-radius: 10px;
 }

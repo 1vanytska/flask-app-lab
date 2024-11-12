@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block title %}My Resume{% endblock %}
+
+{% block aside %}
+    <aside class="sidebar bg-light p-4 rounded shadow-sm">
+        <h1 class="profile-name">Sofiia Ivanytska</h1>
+        <img src="{{ url_for('static', filename='images/profile.jpg') }}" alt="Profile Photo" class="profile-photo mb-3">
+        <h2 class="personal-info-title">Personal Information</h2>
+        <p>Email: <a href="mailto:sofiia.van@yt.com">sofiia.van@yt.com</a></p>
+        <p>Phone: +3801234567890</p>
+        <p class="contact-info">
+            GitHub: <a href="https://github.com/1vanytska" target="_blank">github.com/1vanytska</a>
+        </p>
+        <p class="contact-info">
+            LinkedIn: <a href="https://www.linkedin.com/feed/" target="_blank">www.linkedin.com/feed/</a>
+        </p>
+    </aside>
+{% endblock %}
+
+{% block content %}
+    <main class="col-md-8">
+        <section id="about" class="bg-white p-4 rounded shadow-sm mb-4">
+            <h2>About Me</h2>
+            <p>I am a driven Java developer with experience in creating web applications using Spring Boot. I have knowledge
+                in front-end development and experience working with various databases. I aim to work in a team of
+                professionals to enhance my skills and contribute to interesting projects.</p>
+        </section>
+
+        <section id="education" class="bg-white p-4 rounded shadow-sm mb-4">
+            <h2>Education</h2>
+            <p>Vasyl Stefanyk Precarpathian National University<br>Bachelor of Software Engineering<br>2022 - 2026</p>
+        </section>
+
+        <section id="skills" class="bg-white p-4 rounded shadow-sm mb-4">
+            <h2>Skills</h2>
+            <ul>
+                <li>Programming Languages: Java, Python, C++, PHP</li>
+                <li>Frameworks: Spring Boot, Hibernate, Flask</li>
+                <li>Frontend: HTML, CSS, JavaScript, Angular, React</li>
+                <li>Databases: PostgreSQL, MySQL</li>
+                <li>Tools: Git, Maven</li>
+                <li>Version Control Systems: Git, GitHub, GitLab</li>
+            </ul>
+        </section>
+
+        <section id="experience" class="bg-white p-4 rounded shadow-sm mb-4">
+            <h2>Work Experience / Projects</h2>
+            <h3>Java Developer</h3>
+            <p>Company "IT Solutions", May 2022 - Present</p>
+            <ul>
+                <li>Developed a corporate web application for project management using Spring Boot and Angular.</li>
+                <li>Implemented RESTful APIs for integration with other systems.</li>
+                <li>Optimized database queries to enhance performance.</li>
+            </ul>
+
+            <h3>Project "Goal Tracker"</h3>
+            <p>Personal Project, February 2023 - April 2023</p>
+            <ul>
+                <li>Developed a web application for tracking goals and tasks.</li>
+                <li>Utilized Spring Boot for the backend and React for the frontend.</li>
+                <li>Implemented authentication, goal management, and progress reporting functionalities.</li>
+            </ul>
+        </section>
+    </main>
+    </div>
+    </div>
+{% endblock %}
