@@ -17,6 +17,11 @@
     {% endwith %}
     <h2>Welcome, {{ username }}!</h2>
     <p>You are logged in.</p>
+    <div class="theme-buttons">
+        <a href="{{ url_for('users.set_theme', theme='light') }}" class="btn btn-light">Light Theme</a>
+        <a href="{{ url_for('users.set_theme', theme='dark') }}" class="btn btn-dark">Dark Theme</a>
+    </div>
+    <br>
     <a href="{{ url_for('users.logout') }}" class="btn btn-danger">Logout</a>
 
     <hr>

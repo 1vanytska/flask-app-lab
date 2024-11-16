@@ -10,7 +10,8 @@ def get_profile():
     if "username" in session:
         username_value = session["username"]
         cookies = request.cookies
-        return render_template("profile.html", cookies=cookies, username=username_value)
+        theme = request.cookies.get('theme', 'light')
+        return render_template("profile.html", cookies=cookies, username=username_value, theme=theme)
     flash("You need to log in to access this page.", "danger")
     return redirect(url_for("users.login"))
 
@@ -42,6 +43,15 @@ def profile_delete_all_cookies():
         response.delete_cookie(key)
     flash("All cookies deleted successfully!", "danger")
     return response
+
+@user_bp.route('/set_theme/<theme>')
+def set_theme(theme):
+    if theme in ['light', 'dark']:
+        response = make_response(redirect(url_for('users.get_profile')))
+        response.set_cookie('theme', theme, max_age=60 * 60 * 24 * 30)  # 30 days
+        return response
+    flash("Invalid theme selected.", "danger")
+    return redirect(url_for('users.get_profile'))
 
 
 @user_bp.route("/login", methods=['GET', 'POST'])

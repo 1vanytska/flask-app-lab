@@ -1,0 +1,20 @@
+.body {
+    background-color: #333;
+    color: #fff;
+}
+.navbar {
+    background-color: #000;
+}
+.navbar a.nav-link, .navbar-brand {
+    color: #fff;
+}
+.navbar a.nav-link:hover {
+    color: #aaa;
+}
+.content-wrapper {
+    background-color: #444;
+}
+
+td {
+    color: #aaa;
+}
