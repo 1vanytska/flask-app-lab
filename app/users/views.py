@@ -91,8 +91,8 @@ def admin():
 @user_bp.route('/set_cookie')
 def set_cookie():
     response = make_response('Кука встановлена')
-    response.set_cookie('username', 'student', max_age=timedelta(seconds=300))
-    response.set_cookie('color', '', max_age=timedelta(seconds=300))
+    response.set_cookie('username', 'student', max_age=timedelta(minutes=5))
+    response.set_cookie('color', '', max_age=timedelta(minutes=5))
     return response
 
 @user_bp.route('/get_cookie')
