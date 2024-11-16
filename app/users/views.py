@@ -9,9 +9,40 @@ VALID_PASSWORD = "123"
 def get_profile():
     if "username" in session:
         username_value = session["username"]
-        return render_template("profile.html", username=username_value)
+        cookies = request.cookies
+        return render_template("profile.html", cookies=cookies, username=username_value)
     flash("You need to log in to access this page.", "danger")
     return redirect(url_for("users.login"))
+
+@user_bp.route('/profile/add_cookie', methods=['POST'], endpoint='profile_add_cookie')
+def profile_add_cookie():
+    key = request.form['key']
+    value = request.form['value']
+    duration = request.form.get('duration', 3600)
+
+    response = make_response(redirect(url_for('users.get_profile')))
+    response.set_cookie(key, value, max_age=int(duration))
+    flash(f"Cookie '{key}' added successfully!", "success")
+    return response
+
+
+@user_bp.route('/profile/delete_cookie', methods=['POST'], endpoint='profile_delete_cookie')
+def profile_delete_cookie():
+    key = request.form['key']
+    response = make_response(redirect(url_for('users.get_profile')))
+    response.delete_cookie(key)
+    flash(f"Cookie '{key}' deleted successfully!", "warning")
+    return response
+
+
+@user_bp.route('/profile/delete_all_cookies', methods=['POST'], endpoint='profile_delete_all_cookies')
+def profile_delete_all_cookies():
+    response = make_response(redirect(url_for('users.get_profile')))
+    for key in request.cookies.keys():
+        response.delete_cookie(key)
+    flash("All cookies deleted successfully!", "danger")
+    return response
+
 
 @user_bp.route("/login", methods=['GET', 'POST'])
 def login():
@@ -50,8 +81,8 @@ def admin():
 @user_bp.route('/set_cookie')
 def set_cookie():
     response = make_response('Кука встановлена')
-    response.set_cookie('username', 'student', max_age=timedelta(seconds=60))
-    response.set_cookie('color', '', max_age=timedelta(seconds=60))
+    response.set_cookie('username', 'student', max_age=timedelta(seconds=300))
+    response.set_cookie('color', '', max_age=timedelta(seconds=300))
     return response
 
 @user_bp.route('/get_cookie')
@@ -64,3 +95,4 @@ def delete_cookie():
     response = make_response('Кука видалена')
     response.set_cookie('username', '', expires=0) # response.set_cookie('username', '', max_age=0)
     return response
+

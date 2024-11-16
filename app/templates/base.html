@@ -14,12 +14,14 @@
     {% include 'includes/navbar.html' %}
 
      <div class="container mt-5">
-        <div class="content-wrapper row"> <!-- Доданий обгортковий контейнер -->
+        <div class="content-wrapper row">
+
                 {% block aside %}
                 {% endblock %}
             
                 {% block content %}
                 {% endblock %}
+                
         </div>
     </div>
 
