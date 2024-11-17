@@ -1,30 +1,35 @@
+{% from 'form_macros.html' import render_field %}
 {% extends 'base.html' %}
 
-{% block title %} Add POST {% endblock %}
+{% block title %} Add post {% endblock %}
 
-{% block content %}   
-   <br>
-    <form action="" method="post" novalidate>
-        {{ form.hidden_tag() }}
+{% block content %}
 
-        {% from 'form_macros.html' import render_field %}
-
-            {{ render_field(form.title) }}
-            {{ render_field(form.content) }}
-            {{ render_field(form.publish_date) }}
-            {{ render_field(form.category) }}
-        
-        <div class="form-group form-check">
-            {{ form.is_active(class="form-check-input") }}
-            {{ form.is_active.label(class="form-check-label") }}
+<div class="container mt-5">
+    <div class="card w-75 mx-auto">
+        <div class="card-header">
+            <h5 class="card-title">Create a New Post</h5>
         </div>
-
-        <div class="form-group">
-            {{ form.submit(class="btn btn-primary") }}
+        <div class="card-body">
+            <form action="" method="post" novalidate>
+                {{ form.hidden_tag() }}
+                
+                <div class="form-group mb-3">
+                    {{ render_field(form.title) }}
+                </div>
+                
+                <div class="form-group mb-3">
+                    {{ render_field(form.content) }}
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
         </div>
-        
-        <a href="{{ url_for('posts.get_posts') }}">Return posts</a>
+        <div class="card-footer">
+            <a href="{{ url_for('posts.get_posts') }}" class="btn btn-secondary">Return to Posts</a>
+        </div>
+    </div>
+</div>
 
-    </form>
 
 {% endblock %}
