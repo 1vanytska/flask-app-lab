@@ -6,13 +6,16 @@ from .utils import load_posts, save_post, get_post
 
 @post_bp.route('/add_post', methods=["GET", "POST"]) 
 def add_post():
+    # if 'username' not in session:
+    #     return redirect(url_for('app.users.login', next=request.url))
+
     form = PostForm()
     if form.validate_on_submit():
         title=form.title.data,
         content=form.content.data,
         category=form.category.data,
         is_active=form.is_active.data,
-        author=session.get('username', 'Anonymous')
+        author = form.title.data 
         
         new_post = {'id': len(load_posts()) + 1, 
                     'title': title, 'content': content, 
