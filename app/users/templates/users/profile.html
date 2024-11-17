@@ -4,17 +4,6 @@
 
 {% block content %}
 <div class="container mt-5">
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            <div class="container mt-3">
-            {% for category, message in messages %}
-                <div class="alert alert-{{ category }}" role="alert">
-                {{ message }}
-                </div>
-            {% endfor %}
-            </div>
-        {% endif %}
-    {% endwith %}
     <h2>Welcome, {{ username }}!</h2>
     <p>You are logged in.</p>
     <div class="theme-buttons">
