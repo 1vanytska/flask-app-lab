@@ -4,10 +4,30 @@
 
 {% block content %}
 
+<div class="container mt-5">
     <h1>Post № {{ post["id"] }} - {{ post["title"] }}</h1>
 
-    <p>{{ post.get('content') }}</p>
+    <div class="row">
+        <div class="col-md-12">
+            <p><strong>Category:</strong> {{ post["category"] }}</p>
+        </div>
+        <div class="col-md-12">
+            <p><strong>Published:</strong> {{ post["publication_date"] }}</p>
+        </div>
+        <div class="col-md-12">
+            <p><strong>Author:</strong> {{ post["author"] }}</p>
+        </div>
+    </div>
 
-    <a href="{{ url_for('posts.get_posts') }}">Return posts</a>
-    
+    <hr>
+
+    <div class="row">
+        <div class="col-md-12">
+            <p>{{ post.get('content') }}</p>
+        </div>
+    </div>
+
+    <a href="{{ url_for('posts.get_posts') }}" class="btn btn-secondary mt-3">Return to posts</a>
+</div>
+
 {% endblock %}
