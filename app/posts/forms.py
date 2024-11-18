@@ -10,5 +10,5 @@ class PostForm(FlaskForm):
     publish_date  = DateField('Publish Date',
                                  format='%Y-%m-%d', validators=[DataRequired()])
     category = SelectField('Category', choices=[('tech', 'Tech'), ('science', 'Science'), ('lifestyle', 'Lifestyle')], validators=[DataRequired()])
-    is_active = BooleanField('NOT Active', default=False)
+    is_active = BooleanField('NOT Active', default=True)
     submit = SubmitField("Add Post")
