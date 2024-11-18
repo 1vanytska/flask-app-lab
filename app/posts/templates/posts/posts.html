@@ -15,7 +15,7 @@
 
     <div class="row">
         {% for post in posts %}
-            {% if post["is_active"] %} <!-- Перевірка на активність -->
+            {% if not post["is_active"] %} <!-- Перевірка на активність -->
             <div class="col-md-4 mb-3">
                 <div class="card h-100">
                     <img src="{{ url_for('.static', filename='img/default.png') }}" 

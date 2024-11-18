@@ -19,18 +19,29 @@
     },
     {
         "id": 3,
-        "title": [
-            "Title1 345"
-        ],
-        "content": [
-            "This is my page about my life.\r\nThis is my page about my life."
-        ],
-        "category": [
-            "lifestyle"
-        ],
-        "is_active": [
-            false
-        ],
-        "author": "Title1 345"
+        "title": "About Me",
+        "content": "This is a page about my life and hobbies.",
+        "category": "lifestyle",
+        "is_active": false,
+        "publication_date": "18.11.2024",
+        "author": "Anonymous"
+    },
+    {
+        "id": 4,
+        "title": "Python",
+        "content": "\r\nPython is an interpreted, object-oriented, high-level programming language with dynamic semantics developed by Guido van Rossum. It was originally released in 1991. Designed to be easy as well as fun, the name \"Python\" is a nod to the British comedy group Monty Python.",
+        "category": "tech",
+        "is_active": true,
+        "publication_date": "17.11.2024",
+        "author": "Anonymous"
+    },
+    {
+        "id": 5,
+        "title": "User",
+        "content": "I am simple user. I do something",
+        "category": "science",
+        "is_active": false,
+        "publication_date": "18.11.2024",
+        "author": "Anonymous"
     }
 ]

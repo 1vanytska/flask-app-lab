@@ -6,22 +6,18 @@ from .utils import load_posts, save_post, get_post
 
 @post_bp.route('/add_post', methods=["GET", "POST"]) 
 def add_post():
-    # if 'username' not in session:
-    #     return redirect(url_for('app.users.login', next=request.url))
-
+    
     form = PostForm()
     if form.validate_on_submit():
-        title=form.title.data,
-        content=form.content.data,
-        category=form.category.data,
-        is_active=form.is_active.data,
-        author = form.title.data 
+        title=form.title.data
+        content=form.content.data
+        category=form.category.data
+        is_active=form.is_active.data
+        publish_date  = form.publish_date.data.strftime('%d.%m.%Y')
+        author = session.get('username', 'Anonymous')
         
-        new_post = {'id': len(load_posts()) + 1, 
-                    'title': title, 'content': content, 
-                    'category': category,
-                    'is_active': is_active,
-                    'author': author,
+        new_post = {'id': len(load_posts()) + 1, 'title': title, 'content': content, 'category': category,
+                    'is_active': is_active, 'publication_date': publish_date , 'author': author,
         }
 
         save_post(new_post)
