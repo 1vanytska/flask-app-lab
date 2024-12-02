@@ -8,7 +8,8 @@ class Post(db.Model):
     content = db.Column(db.Text, nullable=False)
     category = db.Column(db.String(50), nullable=False)
     is_active = db.Column(db.Boolean, default=True)
-    publish_date = db.Column(db.DateTime, default=dt.now)
+    publish_date = db.Column(db.DateTime, nullable=False)
+    author = db.Column(db.String(120), nullable=True)
 
     def __repr__(self):
         return f"<Post(title={self.title}, category={self.category}, author={self.author})>"
