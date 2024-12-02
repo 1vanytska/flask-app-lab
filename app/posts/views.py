@@ -1,5 +1,7 @@
 from . import post_bp
+from app import db
 from flask import render_template, abort, flash, session, url_for, redirect, request
+from app.posts.models import Post
 from .forms import PostForm
 from .utils import load_posts, save_post, get_post
 
