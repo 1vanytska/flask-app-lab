@@ -45,4 +45,3 @@ def get_posts():
 def detail_post(id):
     post = Post.query.get_or_404(id)
     return render_template("detail_post.html", post=post)
-    
