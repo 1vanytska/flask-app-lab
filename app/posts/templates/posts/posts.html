@@ -24,6 +24,7 @@
                         <h5 class="card-title">{{ post["title"] | title }}</h5> 
                         <p class="card-text">Post ID: {{ post["id"] }}</p>
                         <p class="card-text">Author: {{ post["author"] }}</p>
+                        <p class="card-text">Published on: {{ post.publish_date }}</p>
                         <p class="card-text">{{ post["content"] | truncate(23) }}</p>
                         <a href="{{ url_for('.detail_post', id=post['id']) }}" class="btn btn-outline-primary">View Post</a>
                     </div>

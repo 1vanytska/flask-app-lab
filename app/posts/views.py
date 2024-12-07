@@ -38,13 +38,11 @@ def add_post():
 
 @post_bp.route('/') 
 def get_posts():
-    posts = load_posts()
+    posts = Post.query.order_by(Post.publish_date.desc()).all()
     return render_template("posts.html", posts=posts)
 
 @post_bp.route('/<int:id>') 
 def detail_post(id):
-    post = get_post(id)
-    if not post:
-        return abort(404)
+    post = Post.query.get_or_404(id)
     return render_template("detail_post.html", post=post)
     

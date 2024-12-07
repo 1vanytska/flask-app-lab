@@ -1,3 +1,4 @@
+from datetime import datetime as dt
 from flask import session
 from flask_wtf import FlaskForm
 from wtforms import BooleanField, DateTimeLocalField, SelectField, StringField, TextAreaField, SubmitField
@@ -8,8 +9,9 @@ class PostForm(FlaskForm):
                         validators=[DataRequired(), Length(min=2, max=10)])
     content = TextAreaField("Content", validators=[DataRequired()])
     publish_date = DateTimeLocalField('Publish Date',
-                                      format='%Y-%m-%dT%H:%M',  # ISO формат для дати й часу
+                                      format='%Y-%m-%dT%H:%M',
+                                      default=dt.now(),
                                       validators=[DataRequired()])
     category = SelectField('Category', choices=[('tech', 'Tech'), ('science', 'Science'), ('lifestyle', 'Lifestyle')], validators=[DataRequired()])
-    is_active = BooleanField('NOT Active', default=True)
+    is_active = BooleanField('Active', default=True)
     submit = SubmitField("Add Post")
