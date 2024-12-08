@@ -45,3 +45,17 @@ def get_posts():
 def detail_post(id):
     post = Post.query.get_or_404(id)
     return render_template("detail_post.html", post=post)
+
+@post_bp.route('/delete', methods=['POST'])
+def delete_post():
+    post_id = request.form.get('post_id')
+    post = Post.query.get(post_id)
+    if not post:
+        flash("Post not found!", "error")
+        return redirect(url_for('posts.get_posts'))
+
+    db.session.delete(post)
+    db.session.commit()
+
+    flash("Post deleted successfully!", "success")
+    return redirect(url_for('posts.get_posts'))
