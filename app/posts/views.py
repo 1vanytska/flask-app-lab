@@ -52,10 +52,25 @@ def delete_post():
     post = Post.query.get(post_id)
     if not post:
         flash("Post not found!", "error")
-        return redirect(url_for('posts.get_posts'))
+        return redirect(url_for('.get_posts'))
 
     db.session.delete(post)
     db.session.commit()
 
     flash("Post deleted successfully!", "success")
-    return redirect(url_for('posts.get_posts'))
+    return redirect(url_for('.get_posts'))
+
+@post_bp.route('/edit/<int:post_id>', methods=['GET', 'POST'])
+def edit_post(post_id):
+    post = db.get_or_404(Post, post_id)
+    form = PostForm(obj=post)
+    if form.validate_on_submit():
+        post.title = form.title.data
+        post.content = form.content.data
+        post.category = form.category.data
+        post.is_active = form.is_active.data
+        post.publish_date = form.publish_date.data
+        db.session.commit()
+        flash('Post updated successfully!', "success")
+        return redirect(url_for('.detail_post', id=post.id))
+    return render_template('add_post.html', form=form)
