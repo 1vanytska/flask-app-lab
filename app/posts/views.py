@@ -1,6 +1,7 @@
 from . import post_bp
 from app import db
 from flask import render_template, abort, flash, session, url_for, redirect, request
+from app.users.models import User
 from app.posts.models import Post
 from .forms import PostForm
 from .utils import load_posts, save_post, get_post
@@ -10,6 +11,10 @@ from .utils import load_posts, save_post, get_post
 def add_post():
     
     form = PostForm()
+
+    authors = User.query.all()
+    form.author_id.choices = [(author.id, author.username) for author in authors]
+
     if form.validate_on_submit():
         title = form.title.data
         content = form.content.data

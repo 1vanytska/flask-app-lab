@@ -1,3 +1,4 @@
+from sqlalchemy.orm import backref
 from app import db
 from datetime import datetime as dt
 
@@ -11,7 +12,7 @@ class Post(db.Model):
     publish_date = db.Column(db.DateTime, nullable=False)
     # author = db.Column(db.String(120), nullable=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=True)
-    author = db.relationship('User', backref="posts", lazy="select")
+    author = db.relationship('User', backref=backref("posts", lazy="dynamic"), lazy="joined")
 
     def __repr__(self):
         return f"<Post(title={self.title}, category={self.category}, author={self.author})>"

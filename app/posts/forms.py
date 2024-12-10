@@ -14,4 +14,6 @@ class PostForm(FlaskForm):
                                       validators=[DataRequired()])
     category = SelectField('Category', choices=[('tech', 'Tech'), ('science', 'Science'), ('lifestyle', 'Lifestyle')], validators=[DataRequired()])
     is_active = BooleanField('Active', default=True)
+    author_id = SelectField("Author", coerce=int)
+
     submit = SubmitField("Add Post")
