@@ -2,7 +2,7 @@ from . import post_bp
 from app import db
 from flask import render_template, abort, flash, session, url_for, redirect, request
 from app.users.models import User
-from app.posts.models import Post
+from app.posts.models import Post, Tag
 from .forms import PostForm
 from .utils import load_posts, save_post, get_post
 
@@ -15,13 +15,18 @@ def add_post():
     authors = User.query.all()
     form.author_id.choices = [(author.id, author.username) for author in authors]
 
+    tags = Tag.query.all()
+    form.tags.choices = [(tag.id, tag.name) for tag in tags]
+
     if form.validate_on_submit():
         title = form.title.data
         content = form.content.data
         category = form.category.data
         is_active = form.is_active.data
         publish_date  = form.publish_date.data
-        author = session.get('username', 'Anonymous')
+        author_id = form.author_id.data
+        author = User.query.get(author_id)
+        tags = form.tags.data
         
         new_post = Post(
             title = title,
@@ -32,6 +37,9 @@ def add_post():
             author = author
         )
         
+        selected_tags = Tag.query.filter(Tag.id.in_(form.tags.data)).all()
+        new_post.tags = selected_tags
+
         db.session.add(new_post)
         db.session.commit()
         flash(f"Post {title} added successfully!", "success")
@@ -67,15 +75,30 @@ def delete_post():
 
 @post_bp.route('/edit/<int:post_id>', methods=['GET', 'POST'])
 def edit_post(post_id):
-    post = db.get_or_404(Post, post_id)
+    post = Post.query.get_or_404(post_id)
     form = PostForm(obj=post)
+
+    authors = User.query.all()
+    form.author_id.choices = [(author.id, author.username) for author in authors]
+
+    tags = Tag.query.all()
+    form.tags.choices = [(tag.id, tag.name) for tag in tags]
+
+    if request.method == "GET":
+        form.tags.data = [tag.id for tag in post.tags]
+
     if form.validate_on_submit():
         post.title = form.title.data
         post.content = form.content.data
         post.category = form.category.data
         post.is_active = form.is_active.data
         post.publish_date = form.publish_date.data
+
+        selected_tags = Tag.query.filter(Tag.id.in_(form.tags.data)).all()
+        post.tags = selected_tags
+
         db.session.commit()
         flash('Post updated successfully!', "success")
         return redirect(url_for('.detail_post', id=post.id))
+    
     return render_template('add_post.html', form=form)

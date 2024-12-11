@@ -117,3 +117,14 @@ th {
     margin: 0 auto;
     overflow-x: auto;
 }
+
+.tag {
+    display: inline-block;
+    margin: 0 5px;
+    padding: 5px 10px;
+    background-color: #a1a1a1;
+    color: #ffffff;
+    border-radius: 15px;
+    font-size: 14px;
+    text-decoration: none;
+}
