@@ -2,8 +2,9 @@ from . import user_bp
 from flask import flash, make_response, redirect, render_template, request, session, url_for
 from app import db
 from app.users.models import User
-from .forms import RegistrationForm
+from .forms import RegistrationForm, LoginForm
 from datetime import datetime, timedelta
+from flask_login import login_user, logout_user, current_user, login_required
 
 @user_bp.route('/register', methods=['GET', 'POST'])
 def register():
@@ -25,47 +26,35 @@ def register():
 
 @user_bp.route("/login", methods=['GET', 'POST'])
 def login():
-    if request.method == "POST":
-        username = request.form["username"]
-        password = request.form["password"]
-        
+    form = LoginForm()
+    if form.validate_on_submit():
+        username = form.username.data
+        password = form.password.data
         user = User.query.filter_by(username=username).first()
-        
         if user and user.check_password(password):
-            session["username"] = user.username
-            session.permanent = True
-            flash("Successfully logged in!", "success")
-            return redirect(url_for("users.account"))
-        else:
-            flash("Invalid username or password.", "danger")
-            return redirect(url_for("users.login"))
-    
-    return render_template("login.html")
+            login_user(user, remember=form.remember.data)
+            flash('Successfully logged in!', 'success')
+            return redirect(url_for('users.account'))
+        flash("Invalid username or password.", "danger")
+    return render_template("login.html", form=form)
 
-@user_bp.route("/account")
+@user_bp.route("/account", methods=['GET', 'POST'])
+@login_required
 def account():
-    username = session.get("username")
-    if not username:
-        flash("You must be logged in to view your profile", "danger")
-        return redirect(url_for("users.login"))
-    
-    user = User.query.filter_by(username=username).first()
-    return render_template("account.html", user=user)
+    return render_template('account.html', user=current_user)
 
-@user_bp.route('/logout')
+@user_bp.route("/logout", methods=['GET'])
+@login_required
 def logout():
-    session.pop('username', None)
-    flash("Successfully logged out.", "info")
+    logout_user()
+    flash("Successfully logged out.", "success")
     return redirect(url_for('users.login'))
 
-@user_bp.route('/users')
-def users():
-    users_list = User.query.all()
-    
-    if not users_list:
-        return render_template('users.html', message="There are no registered users.")
-    
-    return render_template('users.html', users=users_list, count=len(users_list))
+@user_bp.route("/users", methods=['GET'])
+@login_required
+def all_users():
+    users = User.query.all()
+    return render_template('all_users.html', users=users)
 
 VALID_USERNAME = "user"
 VALID_PASSWORD = "123"
@@ -117,23 +106,6 @@ def set_theme(theme):
         return response
     flash("Invalid theme selected.", "danger")
     return redirect(url_for('users.get_profile'))
-
-
-# @user_bp.route("/login", methods=['GET', 'POST'])
-# def login():
-#     if request.method == "POST":
-#         username = request.form["username"]
-#         password = request.form["password"]
-        
-#         if username == VALID_USERNAME and password == VALID_PASSWORD:
-#             session["username"] = username
-#             session.permanent = True
-#             flash("Successfully logged in!", "success")
-#             return redirect(url_for("users.get_profile"))
-#         else:
-#             flash("Invalid username or password.", "danger")
-#             return redirect(url_for("users.login"))
-#     return render_template("login.html")
 
 @user_bp.route('/hi/<string:name>') # --> user/hi/sofiia?age=19
 def greetings(name):

@@ -7,26 +7,37 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('home') }}">Home</a></li>
+                    <a class="nav-link" href="{{ url_for('home') }}">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('resume') }}#about">About Me</a></li>
+                    <a class="nav-link" href="{{ url_for('resume') }}#about">About Me</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('resume') }}#education">Education</a></li>
+                    <a class="nav-link" href="{{ url_for('resume') }}#education">Education</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('resume') }}#skills">Skills</a></li>
+                    <a class="nav-link" href="{{ url_for('resume') }}#skills">Skills</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url_for('resume') }}#experience">Experience</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('users.login') }}">Login</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('users.get_profile') }}">Profile</a>
-                </li>
+                {% if current_user.is_authenticated %}
+                    <!-- Меню для авторизованих користувачів -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('users.account') }}">My Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('users.logout') }}">Logout</a>
+                    </li>
+                {% else %}
+                    <!-- Меню для неавторизованих користувачів -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('users.login') }}">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('users.register') }}">Register</a>
+                    </li>
+                {% endif %}
             </ul>
         </div>
     </div>
