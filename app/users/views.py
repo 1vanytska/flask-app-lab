@@ -137,3 +137,12 @@ def delete_cookie():
     response.set_cookie('username', '', expires=0) # response.set_cookie('username', '', max_age=0)
     return response
 
+@user_bp.route('/homepage')
+def home():
+    """View for the Home page of your website."""
+    agent = request.user_agent
+    return render_template("home.html", agent=agent)
+
+@user_bp.route('/resume')
+def resume():
+    return render_template('resume.html', title='Sofiia Ivanytska - Resume')
