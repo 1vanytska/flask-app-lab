@@ -33,7 +33,9 @@ def create_app(config_name="default"):
         
         from .posts import post_bp
         from .users import user_bp
+        from .orders import order_bp
         app.register_blueprint(post_bp)
         app.register_blueprint(user_bp, url_prefix="/users")
+        app.register_blueprint(order_bp)
 
     return app
