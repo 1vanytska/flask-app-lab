@@ -1,10 +1,58 @@
+import os
+import uuid
 from . import user_bp
-from flask import flash, make_response, redirect, render_template, request, session, url_for
+from flask import current_app, flash, make_response, redirect, render_template, request, session, url_for
 from app import db
 from app.users.models import User
 from .forms import RegistrationForm, LoginForm
 from datetime import datetime, timedelta
 from flask_login import login_user, logout_user, current_user, login_required
+from .forms import UpdateAccountForm
+from werkzeug.utils import secure_filename
+
+# app/users/views.py
+import os
+import uuid
+from flask import current_app, flash, redirect, render_template, url_for
+from app import db
+from app.users.forms import UpdateAccountForm
+from flask_login import login_required, current_user
+from werkzeug.utils import secure_filename
+
+@user_bp.route("/edit_profile", methods=['GET', 'POST'])
+@login_required
+def edit_profile():
+    form = UpdateAccountForm()
+
+    if form.validate_on_submit():
+        current_user.username = form.username.data
+        current_user.email = form.email.data
+        
+        if form.picture.data:
+            picture_file = save_picture(form.picture.data)
+            current_user.image_file = picture_file
+        
+        db.session.commit()
+        flash('Your account has been updated!', 'success')
+        return redirect(url_for('users.account'))
+
+    elif request.method == 'GET':
+        form.username.data = current_user.username
+        form.email.data = current_user.email
+
+    return render_template('edit_profile.html', form=form)
+
+def save_picture(form_picture):
+    if form_picture:
+        random_hex = uuid.uuid4().hex
+        _, f_ext = os.path.splitext(form_picture.filename)
+        picture_fn = random_hex + f_ext
+        picture_path = os.path.join(current_app.root_path, 'users/static/profile_image', picture_fn)
+        
+        form_picture.save(picture_path)
+        return picture_fn
+    else:
+        return None
 
 @user_bp.route('/register', methods=['GET', 'POST'])
 def register():
