@@ -1,11 +1,26 @@
 {% extends 'base.html' %}
 
-{% block title %}My Page{% endblock %}
+{% block title %}Profile{% endblock %}
+
+{% block css %} 
+    <link rel="stylesheet" href="{{ url_for('.static', filename='css/user.css') }}">
+{% endblock %}
 
 {% block content %}
-
-<h1>Welcome, {{ user.username }}!</h1>
-<p>Email: {{ user.email }}</p>
-<a href="{{ url_for('users.logout') }}" class="btn btn-danger">Logout</a>
-
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-4 text-center">
+            <!-- Фото профілю -->
+            <img src="{{ url_for('.static', filename='profile_image/' + (user.image_file or 'default.jpg')) }}" 
+            alt="Profile Picture" 
+            class="profile-pic">
+        </div>
+        <div class="col-md-8">
+            <!-- Інформація про користувача -->
+            <h2>{{ user.username }}</h2>
+            <p><strong>Email:</strong> {{ user.email }}</p>
+            <a href="{{ url_for('users.logout') }}" class="btn btn-danger">Logout</a>
+        </div>
+    </div>
+</div>
 {% endblock %}
