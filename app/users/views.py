@@ -10,15 +10,6 @@ from flask_login import login_user, logout_user, current_user, login_required
 from .forms import UpdateAccountForm
 from werkzeug.utils import secure_filename
 
-# app/users/views.py
-import os
-import uuid
-from flask import current_app, flash, redirect, render_template, url_for
-from app import db
-from app.users.forms import UpdateAccountForm
-from flask_login import login_required, current_user
-from werkzeug.utils import secure_filename
-
 @user_bp.route("/edit_profile", methods=['GET', 'POST'])
 @login_required
 def edit_profile():
@@ -27,6 +18,7 @@ def edit_profile():
     if form.validate_on_submit():
         current_user.username = form.username.data
         current_user.email = form.email.data
+        current_user.about_me = form.about_me.data
         
         if form.picture.data:
             picture_file = save_picture(form.picture.data)
@@ -39,6 +31,7 @@ def edit_profile():
     elif request.method == 'GET':
         form.username.data = current_user.username
         form.email.data = current_user.email
+        form.about_me.data = current_user.about_me
 
     return render_template('edit_profile.html', form=form)
 
@@ -81,6 +74,8 @@ def login():
         user = User.query.filter_by(username=username).first()
         if user and user.check_password(password):
             login_user(user, remember=form.remember.data)
+            user.last_seen = datetime.now()
+            db.session.commit()
             flash('Successfully logged in!', 'success')
             return redirect(url_for('users.account'))
         flash("Invalid username or password.", "danger")
@@ -89,6 +84,8 @@ def login():
 @user_bp.route("/account", methods=['GET', 'POST'])
 @login_required
 def account():
+    current_user.last_seen = datetime.now()
+    db.session.commit()
     return render_template('account.html', user=current_user)
 
 @user_bp.route("/logout", methods=['GET'])

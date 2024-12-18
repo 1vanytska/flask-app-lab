@@ -1,4 +1,3 @@
-<!-- templates/users/edit_profile.html -->
 {% extends 'base.html' %}
 
 {% block title %} Edit Profile {% endblock %}
@@ -34,6 +33,14 @@
                         {{ form.picture.label(class="form-control-label") }}
                         {{ form.picture(class="form-control") }}
                         {% for error in form.picture.errors %}
+                            <small class="text-danger">{{ error }}</small><br>
+                        {% endfor %}
+                    </div>
+
+                    <div class="form-group mb-3">
+                        {{ form.about_me.label(class="form-control-label") }}
+                        {{ form.about_me(class="form-control") }}
+                        {% for error in form.about_me.errors %}
                             <small class="text-danger">{{ error }}</small><br>
                         {% endfor %}
                     </div>

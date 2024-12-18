@@ -49,6 +49,7 @@ class UpdateAccountForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired(), Length(min=3, max=20), Regexp('^[A-Za-z][A-Za-z0-9_]*$', message="Username must start with a letter and contain only letters, numbers, and underscores")])
     email = StringField('Email', validators=[DataRequired(), Email()])
     picture = FileField('Update Profile Picture', validators=[FileAllowed(['jpg', 'png', 'jpeg'], 'Images only!')])  # Додаємо поле для зображень
+    about_me = StringField('About Me', validators=[Length(max=200)])
     submit = SubmitField('Update')
 
     def validate_username(self, username):
