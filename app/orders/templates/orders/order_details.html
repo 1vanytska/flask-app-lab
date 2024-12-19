@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %} Order Details {% endblock %}
+
+{% block css %} 
+    <link rel="stylesheet" href="{{ url_for('.static', filename='css/order.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <h1>Order #{{ order.id }} - {{ order.name }}</h1>
+
+    <div class="row">
+        <div class="col-md-12">
+            <p><strong>Description:</strong> {{ order.comment }}</p>
+        </div>
+        <div class="col-md-12">
+            <p><strong>Price:</strong> ${{ order.price }}</p>
+        </div>
+        <div class="col-md-12">
+            <p>
+                {% if order.categories %}
+                    {% for category in order.categories %}
+                        <span class="category-badge">{{ category.name }}</span>
+                    {% endfor %}
+                {% else %}
+                    <span class="text-muted">No categories assigned.</span>
+                {% endif %}
+            </p>
+        </div>
+    </div>
+
+    <hr>
+    <div><a href="{{ url_for('.orders_list') }}" class="btn btn-secondary mt-3">Return to orders</a></div><br>
+    <form action="{{ url_for('.edit_order', order_id=order.id) }}">
+        <button type="submit" class="btn btn-primary">
+            <i class="bi bi-pencil"></i> Edit Order
+        </button>
+    </form><br>
+    <form method="POST" action="{{ url_for('orders.delete_order', order_id=order.id) }}">
+        <button type="submit" class="btn btn-danger">Delete Order</button>
+    </form>
+</div>
+
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %} Edit Order {% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1>Edit Order</h1>
+    
+    <form method="POST" action="{{ url_for('orders.edit_order', order_id=order.id) }}">
+        {{ form.hidden_tag() }}
+        
+        <div class="form-group mb-3">
+            {{ form.name.label(class="form-control-label") }}
+            {{ form.name(class="form-control") }}
+        </div>
+
+        <div class="form-group mb-3">
+            {{ form.comment.label(class="form-control-label") }}
+            {{ form.comment(class="form-control") }}
+        </div>
+
+        <div class="form-group mb-3">
+            {{ form.price.label(class="form-control-label") }}
+            {{ form.price(class="form-control") }}
+        </div>
+
+        <div class="form-group mb-3">
+            {{ form.categories.label(class="form-control-label") }}
+            {{ form.categories(class="form-control") }}
+        </div>
+        
+        <div class="form-group mb-3">
+            {{ form.submit(class="btn btn-primary") }}
+        </div>
+    </form>
+    
+    <form method="POST" action="{{ url_for('orders.delete_order', order_id=order.id) }}">
+        <button type="submit" class="btn btn-danger">Delete Order</button>
+    </form>
+</div>
+{% endblock %}

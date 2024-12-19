@@ -9,7 +9,7 @@
 {% block content %}
 <div class="container mt-5">
     <h2 class="mb-4 text-center">All Orders</h2>
-
+    <div><a href="{{ url_for('orders.create_order') }}" class="btn btn-primary">Create your a new order</a></div><br>
     <form method="POST">
         {{ form.hidden_tag() }}
         <div class="d-flex flex-row mb-2">
@@ -43,29 +43,34 @@
         <ul class="list-group">
             {% for order in orders %}
             <li class="list-group-item">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                        <h5>{{ order.name }}</h5>
-                        <p class="text-muted mb-1">{{ order.comment }}</p>
-                        <span class="text-primary fw-bold">Price:</span> ${{ order.price }}
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h5>{{ order.name }}</h5>
+                            <p class="text-muted mb-1">
+                                {{ order.comment[:50] }}{% if order.comment|length > 50 %}...{% endif %}
+                            </p>                            
+                            <span class="text-primary fw-bold">Price:</span> ${{ order.price }}
+                            <p><a href="{{ url_for('orders.order_details', order_id=order.id) }}" class="btn btn-info btn-sm">
+                                View Details
+                            </a></p>
+                        </div>
+                        <div>
+                            {% if order.categories %}
+                                {% for category in order.categories %}
+                                    <span class="category-badge">{{ category.name }}</span>
+                                {% endfor %}
+                            {% else %}
+                                <span class="text-muted">No categories assigned</span>
+                            {% endif %}
+                        </div>
                     </div>
-                    <div>
-                        {% if order.categories %}
-                            {% for category in order.categories %}
-                                <span class="category-badge">{{ category.name }}</span>
-                            {% endfor %}
-                        {% else %}
-                            <span class="text-muted">No categories assigned</span>
-                        {% endif %}
-                    </div>
-                </div>
             </li>
             {% endfor %}
         </ul>
     {% else %}
         <div class="alert alert-warning text-center">
             <p>No orders available yet.</p>
-            <a href="{{ url_for('create_order') }}" class="btn btn-primary">Create your first order</a>
+            <a href="{{ url_for('orders.create_order') }}" class="btn btn-primary">Create your first order</a>
         </div>
     {% endif %}
 </div>

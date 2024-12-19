@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import SelectField, StringField, FloatField, SelectMultipleField, SubmitField
+from wtforms import DecimalField, SelectField, StringField, FloatField, SelectMultipleField, SubmitField, TextAreaField
 from wtforms.validators import DataRequired, Length, NumberRange
 from app.orders.models import Category
 
@@ -42,3 +42,10 @@ class SearchForm(FlaskForm):
         ('price', 'Price')
     ], validators=[DataRequired()])
     submit = SubmitField('Search')
+
+class EditOrderForm(FlaskForm):
+    name = StringField('Name', validators=[DataRequired(), Length(min=2, max=50)])
+    comment = TextAreaField('Comment', validators=[Length(max=200)])
+    price = FloatField('Price', validators=[DataRequired(), NumberRange(min=0)])
+    categories = SelectMultipleField('Categories', coerce=int)
+    submit = SubmitField('Update Order')
