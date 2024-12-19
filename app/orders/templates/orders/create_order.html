@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block title %} Create Order {% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card w-75 mx-auto">
+        <div class="card-header">
+            <h5 class="card-title">Create a New Order</h5>
+        </div>
+        <div class="card-body">
+            <form method="POST" action="{{ url_for('orders.create_order') }}">
+                {{ form.hidden_tag() }}
+                
+                <div class="form-group mb-3">
+                    {{ form.name.label(class="form-control-label") }}
+                    {{ form.name(class="form-control") }}
+                    {% for error in form.name.errors %}
+                        <small class="text-danger">{{ error }}</small><br>
+                    {% endfor %}
+                </div>
+
+                <div class="form-group mb-3">
+                    {{ form.comment.label(class="form-control-label") }}
+                    {{ form.comment(class="form-control") }}
+                    {% for error in form.comment.errors %}
+                        <small class="text-danger">{{ error }}</small><br>
+                    {% endfor %}
+                </div>
+
+                <div class="form-group mb-3">
+                    {{ form.price.label(class="form-control-label") }}
+                    {{ form.price(class="form-control") }}
+                    {% for error in form.price.errors %}
+                        <small class="text-danger">{{ error }}</small><br>
+                    {% endfor %}
+                </div>
+
+                <div class="form-group mb-3">
+                    {{ form.categories.label(class="form-control-label") }}
+                    {{ form.categories(class="form-control") }}
+                    {% for error in form.categories.errors %}
+                        <small class="text-danger">{{ error }}</small><br>
+                    {% endfor %}
+                </div>
+
+                <div class="form-group mb-3">
+                    {{ form.submit(class="btn btn-primary btn-block") }}
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

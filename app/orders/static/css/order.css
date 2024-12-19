@@ -1,0 +1,20 @@
+.category-badge {
+    display: inline-block;
+    padding: 5px 15px;
+    margin-right: 10px;
+    margin-bottom: 5px;
+    border-radius: 25px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+    text-transform: capitalize;
+}
+
+.category-badge {
+    background-color: #333;
+}
+
+.category-badge:hover {
+    opacity: 0.8;
+    cursor: pointer;
+}

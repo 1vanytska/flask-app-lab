@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}Orders{% endblock %}
+
+{% block css %} 
+    <link rel="stylesheet" href="{{ url_for('.static', filename='css/order.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4 text-center">All Orders</h2>
+
+    {% if orders %}
+        <ul class="list-group">
+            {% for order in orders %}
+            <li class="list-group-item">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h5>{{ order.name }}</h5>
+                        <p class="text-muted mb-1">{{ order.comment }}</p>
+                        <span class="text-primary fw-bold">Price:</span> ${{ order.price }}
+                    </div>
+                    <div>
+                        {% if order.categories %}
+                            {% for category in order.categories %}
+                                <span class="category-badge">{{ category.name }}</span>
+                            {% endfor %}
+                        {% else %}
+                            <span class="text-muted">No categories assigned</span>
+                        {% endif %}
+                    </div>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <div class="alert alert-warning text-center">
+            <p>No orders available yet.</p>
+            <a href="{{ url_for('create_order') }}" class="btn btn-primary">Create your first order</a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
