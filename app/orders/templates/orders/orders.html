@@ -10,6 +10,35 @@
 <div class="container mt-5">
     <h2 class="mb-4 text-center">All Orders</h2>
 
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        <div class="d-flex flex-row mb-2">
+            <div class="form-group mr-3">
+                {{ form.search_by.label(class="form-control-label") }}
+                {{ form.search_by(class="form-control") }}
+            </div>
+            <div class="form-group mr-3">
+                {{ form.category_id.label(class="form-control-label") }}
+                {{ form.category_id(class="form-control") }}
+            </div>
+            <div class="form-group mr-3">
+                {{ form.ignore_category_filter.label(class="form-control-label") }}
+                {{ form.ignore_category_filter(class="form-control") }}
+            </div>
+            <div class="form-group mr-3">
+                {{ form.sort_by.label(class="form-control-label") }}
+                {{ form.sort_by(class="form-control") }}
+            </div>
+        </div>
+    <div class="form-group mr-3">
+        {{ form.search_field.label(class="form-control-label") }}
+        {{ form.search_field(class="form-control") }}
+    </div>
+        <div class="form-group">
+            {{ form.submit(class="btn btn-primary") }}
+        </div>
+    </form>
+
     {% if orders %}
         <ul class="list-group">
             {% for order in orders %}
